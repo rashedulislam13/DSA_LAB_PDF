@@ -1,0 +1,620 @@
+
+-------------------------------------------------------------------------------------------------------
+
+Q1:- Write a program to insert an element into a linear array.
+
+Solve in C++:-
+#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[100], n, pos, elem;
+    cout << "Enter the size of the array: ";
+    cin >> n;
+    cout << "Enter the elements of the array: ";
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+    cout << "Enter the element to be inserted: ";
+    cin >> elem;
+    cout << "Enter the position at which the element should be inserted: ";
+    cin >> pos;
+    for (int i = n-1; i >= pos-1; i--) {
+        arr[i+1] = arr[i];
+    }
+    arr[pos-1] = elem;
+    n++;
+    cout << "New array: ";
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
+
+-----------------------------------------------------------------------------------------------------
+
+Q2:- Write a program to delete an element from a linear array.
+
+Solve in c++:-
+#include <iostream>
+using namespace std;
+
+int main() {
+  int n, element, index;
+
+  cout << "Enter the number of elements in the array: ";
+  cin >> n;
+
+  int arr[n];
+  cout << "Enter the elements of the array: ";
+  for (int i = 0; i < n; i++) {
+    cin >> arr[i];
+  }
+  cout << "Enter the element to delete: ";
+  cin >> element;
+  index = -1;
+  
+  for (int i = 0; i < n; i++) {
+    if (arr[i] == element) {
+      index = i;
+      break;
+    }
+  }
+  if (index == -1) {
+    cout << "Element not found in the array!" << endl;
+    return 0;
+  }
+
+  for (int i = index; i < n - 1; i++) {
+    arr[i] = arr[i+1];
+  }
+  n--;
+  cout << "Array after deleting the element: ";
+  for (int i = 0; i < n; i++) {
+    cout << arr[i] << " ";
+  }
+  cout << endl;
+
+  return 0;
+}
+
+----------------------------------------------------------------------------------------------------
+
+Q3:- Write a program to sort a linear array using the bubble sort algorithm.
+
+Solve in Python:-
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n - i - 1):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+    return arr
+arr = [64, 34, 25, 12, 22, 11, 90]
+sorted_arr = bubble_sort(arr)
+print("Sorted array: ", sorted_arr)
+
+---------------------------------------------------------------------------------------------------------
+
+Q4. write a program to sort an array using marge sort.
+
+Solve in Python:-
+def merge_sort(arr):
+    if len(arr) > 1:
+        mid = len(arr) // 2
+        left_half = arr[:mid]
+        right_half = arr[mid:]
+
+        merge_sort(left_half)
+        merge_sort(right_half)
+
+        i = j = k = 0
+        while i < len(left_half) and j < len(right_half):
+            if left_half[i] < right_half[j]:
+                arr[k] = left_half[i]
+                i += 1
+            else:
+                arr[k] = right_half[j]
+                j += 1
+            k += 1
+        while i < len(left_half):
+            arr[k] = left_half[i]
+            i += 1
+            k += 1
+        while j < len(right_half):
+            arr[k] = right_half[j]
+            j += 1
+            k += 1
+    return arr
+arr = [64, 34, 25, 12, 22, 11, 90]
+sorted_arr = merge_sort(arr)
+print("Sorted array: ", sorted_arr)
+
+--------------------------------------------------------------------------------------------
+
+Q5. Write a program to insert a node into a linked list.
+
+Solve in Python:-
+class Node:
+    def __init__(self, data=None):
+        self.data = data
+        self.next = None
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    def insert_at_end(self, data):
+        new_node = Node(data)
+
+        if self.head is None:
+            self.head = new_node
+            return
+
+        last_node = self.head
+        while last_node.next:
+            last_node = last_node.next
+
+        last_node.next = new_node
+
+    def insert_at_start(self, data):
+        new_node = Node(data)
+
+        new_node.next = self.head
+        self.head = new_node
+
+    def insert_after_node(self, prev_node, data):
+        if not prev_node:
+            print("Previous node is not in the linked list")
+            return
+
+        new_node = Node(data)
+
+        new_node.next = prev_node.next
+        prev_node.next = new_node
+
+    def print_list(self):
+        current_node = self.head
+        while current_node:
+            print(current_node.data)
+            current_node = current_node.next
+my_list = LinkedList()
+
+my_list.insert_at_end(1)
+my_list.insert_at_end(2)
+my_list.insert_at_end(4)
+
+second_node = my_list.head.next
+my_list.insert_after_node(second_node, 5)
+my_list.print_list()
+
+-------------------------------------------------------------------------------------------------------
+
+Q6. Write a program to delet a node from linked list.
+
+Solve in Pyhton:-
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+        
+class LinkedList:
+    def __init__(self):
+        self.head = None
+        
+    def insert(self, data):
+        newNode = Node(data)
+        
+        if self.head is None:
+            self.head = newNode
+        else:
+            currentNode = self.head
+            while currentNode.next is not None:
+                currentNode = currentNode.next
+            currentNode.next = newNode
+            
+    def delete(self, data):
+        if self.head is None:
+            print("List is empty!")
+            return
+        
+        if self.head.data == data:
+            self.head = self.head.next
+            return
+        
+        currentNode = self.head
+        prevNode = None
+        while currentNode is not None and currentNode.data != data:
+            prevNode = currentNode
+            currentNode = currentNode.next
+            
+        if currentNode is None:
+            print("Data not found!")
+            return
+        
+        prevNode.next = currentNode.next
+        currentNode = None
+        
+    def printList(self):
+        if self.head is None:
+            print("List is empty!")
+            return
+        
+        currentNode = self.head
+        while currentNode is not None:
+            print(currentNode.data, end=" ")
+            currentNode = currentNode.next
+        print()
+
+myList = LinkedList()
+myList.insert(1)
+myList.insert(2)
+myList.insert(3)
+myList.insert(4)
+myList.insert(5)
+
+myList.delete(3)
+myList.delete(1)
+myList.delete(5)
+
+myList.printList()
+
+--------------------------------------------------------------------------------------------------------
+
+Q7:- Write a program to find an element using the binary search algorithm.
+
+Solve in c++:-
+#include <iostream>
+using namespace std;
+
+int binarySearch(int arr[], int n, int target) {
+  int low = 0, high = n - 1;
+
+  while (low <= high) {
+    int mid = (low + high) / 2;
+    if (arr[mid] == target) {
+      return mid;
+    } else if (arr[mid] < target) {
+      low = mid + 1;
+    } else {
+      high = mid - 1;
+    }
+  }
+  return -1;
+}
+
+int main() {
+  int n, target;
+  cout << "Enter the number of elements in the array: ";
+  cin >> n;
+  int arr[n];
+  cout << "Enter the elements of the array (in sorted order): ";
+  for (int i = 0; i < n; i++) {
+    cin >> arr[i];
+  }
+  cout << "Enter the element to search for: ";
+  cin >> target;
+
+  int index = binarySearch(arr, n, target);
+
+  if (index == -1) {
+    cout << "Element not found in the array!" << endl;
+  } else {
+    cout << "Element found at index " << index << endl;
+  }
+  return 0;
+}
+
+-------------------------------------------------------------------------------------------------------------------------
+
+Q8. Write a program to solve the following 0/1 knapsack problem using dynamic programming 
+approach, profits P=(11, 21, 31, 33), weight W=(2, 11, 22, 15), knapsack capacity C=40 
+and no. of items n=4.
+
+Solve Python:-
+def knapsack01(W, P, C, n):
+    table = [[0 for _ in range(C+1)] for _ in range(n+1)]
+
+    for i in range(1, n+1):
+        for j in range(1, C+1):
+            if W[i-1] > j:
+
+                table[i][j] = table[i-1][j]
+            else:
+
+                table[i][j] = max(P[i-1] + table[i-1][j-W[i-1]], table[i-1][j])
+
+    return table[n][C]
+
+# Example usage:
+W = [2, 11, 22, 15]
+P = [11, 21, 31, 33]
+C = 40
+n = 4
+print(knapsack01(W, P, C, n)) 
+
+------------------------------------------------------------------------------------------------------------------------
+
+Q9.Job sequencing with deadlines problem follow the following rules to obtain the feasible 
+solution: 
+ Each job takes one unit of time.
+ If job starts before or at its deadline, profit is obtained, otherwise no profit.
+ Goal is schedule jobs to maximize the total profit.
+Write a program using greedy method to solve this problem when no. of jobs n=7, profits 
+(𝑃1, 𝑃2, 𝑃3, … . , 𝑃7) = (3, 5, 20, 18, 1, 6, 30) and deadlines (𝑑1, 𝑑2, 𝑑3, … . , 𝑑7) =
+(1, 3, 4, 3, 2, 1, 2)
+
+Solve in Python:-
+
+def job_sequencing_deadlines(profits, deadlines):
+    n = len(profits)
+    jobs = sorted(range(n), key=lambda i: -profits[i])
+    schedule = [None] * max(deadlines)
+    total_profit = 0
+
+    for i in jobs:
+        d = deadlines[i] - 1
+        while d >= 0 and schedule[d] is not None:
+            d -= 1
+        if d >= 0:
+            schedule[d] = i
+            total_profit += profits[i]
+
+    return total_profit
+profits = [3, 5, 20, 18, 1, 6, 30]
+deadlines = [1, 3, 4, 3, 2, 1, 2]
+print(job_sequencing_deadlines(profits, deadlines,))
+
+----------------------------------------------------------------------------------------------------------------------
+
+Q10:- Kruskal's algorithm is a greedy algorithm in graph theory that finds a minimum spanning 
+tree for a connected weighted graph. Implement Kruskal’s algorithm and find the 
+minimum spanning tree for the following graph.
+
+Solve in python:-
+
+# Kruskal's algorithm in Python
+class Graph:
+    def __init__(self, vertices):
+        self.V = vertices
+        self.graph = []
+
+    def add_edge(self, u, v, w):
+        self.graph.append([u, v, w])
+
+    # Search function
+
+    def find(self, parent, i):
+        if parent[i] == i:
+            return i
+        return self.find(parent, parent[i])
+
+    def apply_union(self, parent, rank, x, y):
+        xroot = self.find(parent, x)
+        yroot = self.find(parent, y)
+        if rank[xroot] < rank[yroot]:
+            parent[xroot] = yroot
+        elif rank[xroot] > rank[yroot]:
+            parent[yroot] = xroot
+        else:
+            parent[yroot] = xroot
+            rank[xroot] += 1
+
+    #  Applying Kruskal algorithm
+    def kruskal_algo(self):
+        result = []
+        i, e = 0, 0
+        self.graph = sorted(self.graph, key=lambda item: item[2])
+        parent = []
+        rank = []
+        for node in range(self.V):
+            parent.append(node)
+            rank.append(0)
+        while e < self.V - 1:
+            u, v, w = self.graph[i]
+            i = i + 1
+            x = self.find(parent, u)
+            y = self.find(parent, v)
+            if x != y:
+                e = e + 1
+                result.append([u, v, w])
+                self.apply_union(parent, rank, x, y)
+        for u, v, weight in result:
+            print("%d - %d: %d" % (u, v, weight))
+
+g = Graph(6)
+g.add_edge(0, 1, 4)
+g.add_edge(0, 2, 4)
+g.add_edge(1, 2, 2)
+g.add_edge(1, 0, 4)
+g.add_edge(2, 0, 4)
+g.add_edge(2, 1, 2)
+g.add_edge(2, 3, 3)
+g.add_edge(2, 5, 2)
+g.add_edge(2, 4, 4)
+g.add_edge(3, 2, 3)
+g.add_edge(3, 4, 3)
+g.add_edge(4, 2, 4)
+g.add_edge(4, 3, 3)
+g.add_edge(5, 2, 2)
+g.add_edge(5, 4, 3)
+g.kruskal_algo()
+
+------------------------------------------------------------------------------------------------------------------------
+
+Q11:- Write a program to find the shortest path from a directed weighted multistage graph 
+using dynamic Algorithm.
+
+Solve in Pyrhon:--
+from collections import defaultdict
+
+class Graph:
+    def __init__(self, vertices):
+        self.vertices = vertices
+        self.edges = defaultdict(list)
+        self.weights = {}
+
+    def add_edge(self, u, v, w):
+        # Add an edge to the graph with weight w
+        self.edges[u].append(v)
+        self.weights[(u, v)] = w
+
+def shortest_path(graph, source, destination):
+    # Initialize the distance and parent arrays
+    distance = [float("inf")] * graph.vertices
+    distance[source] = 0
+    parent = [-1] * graph.vertices
+
+    # Perform dynamic programming to find shortest paths
+    for i in range(source, graph.vertices):
+        for j in graph.edges[i]:
+            if distance[j] > distance[i] + graph.weights[(i, j)]:
+                distance[j] = distance[i] + graph.weights[(i, j)]
+                parent[j] = i
+
+    # Build the shortest path by traversing the parent array
+    path = []
+    node = destination
+    while node != source:
+        path.append(node)
+        node = parent[node]
+    path.append(source)
+    path.reverse()
+
+    # Return the shortest path and shortest distance
+    return path, distance[destination]
+
+# Example usage
+g = Graph(8)
+g.add_edge(0, 1, 1)
+g.add_edge(0, 2, 2)
+g.add_edge(1, 3, 3)
+g.add_edge(1, 4, 2)
+g.add_edge(2, 3, 1)
+g.add_edge(2, 4, 3)
+g.add_edge(3, 5, 1)
+g.add_edge(4, 5, 2)
+g.add_edge(5, 6, 1)
+g.add_edge(6, 7, 1)
+
+# Find the shortest path from node 0 to node 7 and print the results
+path, distance = shortest_path(g, 0, 7)
+print("Shortest path:", path)
+print("Shortest distance from source to destination:", distance)
+
+
+-------------------------------------------------------------------------------------------------------------------------
+
+Q12:- Write a program to find the all pair shortest path from a graph using Floyd warshall’s
+Algorithm.
+
+Solve python:-
+import math
+graph = [
+    [0, 3, math.inf, 7],
+    [8, 0, 2, math.inf],
+    [5, math.inf, 0, 1],
+    [2, math.inf, math.inf, 0]
+]
+num_nodes = len(graph)
+
+distance = [[graph[i][j] for j in range(num_nodes)] for i in range(num_nodes)]
+
+for k in range(num_nodes):
+    for i in range(num_nodes):
+        for j in range(num_nodes):
+            if distance[i][j] > distance[i][k] + distance[k][j]:
+                distance[i][j] = distance[i][k] + distance[k][j]
+
+print("All Pair Shortest Path Distance Matrix: ")
+for row in distance:
+    print(row)
+
+---------------------------------------------------------------------------------------------------------------------
+
+Q13:- The eight queen’s puzzle is the problem of placing eight chess queens on an 8×8 
+chessboard so that no two queens attack each other. Thus, a solution requires that no two 
+queens share the same row, column, or diagonal. The eight queen’s puzzle is an example 
+of the more general n-queens problem of placing n queens on an n×n chessboard, where 
+solutions exist for all natural numbers n with the exception of 2 and 3. Write a program to 
+solve the n-queens problem.
+
+Solve in Python:- ------
+class QueenChessBoard:
+    def __init__(self, size):
+        self.size = size
+
+        self.columns = []
+
+    def place_in_next_row(self, column):
+        self.columns.append(column)
+
+    def remove_in_current_row(self):
+        return self.columns.pop()
+
+    def is_this_column_safe_in_next_row(self, column):
+        row = len(self.columns)
+        for queen_column in self.columns:
+            if column == queen_column:
+                return False
+
+        for queen_row, queen_column in enumerate(self.columns):
+            if queen_column - queen_row == column - row:
+                return False
+
+        for queen_row, queen_column in enumerate(self.columns):
+            if ((self.size - queen_column) - queen_row
+                    == (self.size - column) - row):
+                return False
+
+        return True
+
+    def display(self):
+        for row in range(self.size):
+            for column in range(self.size):
+                if column == self.columns[row]:
+                    print('Q', end=' ')
+                else:
+                    print('.', end=' ')
+            print()
+
+
+def solve_queen(size):
+    """Display a chessboard for each possible configuration of placing n queens
+    on an n x n chessboard and print the number of such configurations."""
+    board = QueenChessBoard(size)
+    number_of_solutions = 0
+
+    row = 0
+    column = 0
+    while True:
+        while column < size:
+            if board.is_this_column_safe_in_next_row(column):
+                board.place_in_next_row(column)
+                row += 1
+                column = 0
+                break
+            else:
+                column += 1
+        if column == size or row == size:
+            if row == size:
+                board.display()
+                print()
+                number_of_solutions += 1
+                board.remove_in_current_row()
+                row -= 1
+            try:
+                prev_column = board.remove_in_current_row()
+            except IndexError:
+
+                break
+            row -= 1
+            column = 1 + prev_column
+    print('Number of solutions:', number_of_solutions)
+
+n = int(input('Enter n: '))
+solve_queen(n)
+
+-----------------------------------Finised-------------------------------------------
